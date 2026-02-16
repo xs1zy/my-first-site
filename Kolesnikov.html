@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.Kolesnikov - Автосервис</title>
+    <link rel="stylesheet" href="">
+    <picture>
+    <source media="(max-width: 600px)" srcset="small-banner.jpg">
+    <source media="(max-width: 1200px)" srcset="medium-banner.jpg">
+    <img src="default-banner.jpg" alt="Описание">
+</picture>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-gray: #333333;
+            --light-gray: #f5f5f5;
+            --medium-gray: #777777;
+            --accent-color: #e63946;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            color: var(--primary-gray);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка и навигация */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-gray);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--primary-gray);
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-gray);
+            cursor: pointer;
+        }
+        
+        /* Основные секции */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-gray);
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Главная секция */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://psv4.userapi.com/s/v1/d2/w9XQ3bWvt8-_9Oh0w5Z8NsyR3NkdDEqdvuHX1NofoBlzlYLObtC57WjtlZu_gt5b0erzvThN6jW7_YgrKkzpQPD7wXG3Pf-kSEth6ZvuynNhybMPMG_fpH5ID1SQ-zHSpUpu1sjasrJr/ea-10-8lyxmz_1180x600.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 180px 0 100px;
+            margin-top: 70px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c1121f;
+            transform: translateY(-3px);
+        }
+        
+        /* Услуги */
+        .services {
+            background-color: var(--light-gray);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px 30px 40px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            width: 160px;
+            height: 160px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border: 3px solid var(--white);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.05);
+        }
+        
+        .service-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-gray);
+            width: 100%;
+        }
+        
+        .service-card p {
+            color: var(--medium-gray);
+            margin-bottom: 0;
+            flex-grow: 1;
+            width: 100%;
+        }
+        
+        /* Как заказать */
+        .order-steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+            color: var(--primary-gray);
+        }
+        
+        .step p {
+            color: var(--medium-gray);
+        }
+        
+        /* Контакты */
+        .support {
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+        
+        .support-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .support-content p {
+            margin-bottom: 30px;
+            color: var(--medium-gray);
+            font-size: 1.1rem;
+        }
+        
+        .phone-number {
+            display: inline-block;
+            background-color: var(--white);
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            margin-bottom: 30px;
+        }
+        
+        .phone-number:hover {
+            transform: scale(1.05);
+        }
+        
+        .support-info {
+            margin-top: 30px;
+            color: var(--medium-gray);
+        }
+        
+        /* Футер */
+        footer {
+            background-color: var(--primary-gray);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--medium-gray);
+            color: #cccccc;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .service-icon {
+                width: 140px;
+                height: 140px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-icon {
+                width: 180px;
+                height: 180px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .phone-number {
+                font-size: 1.5rem;
+                padding: 15px 30px;
+            }
+            
+            .step {
+                min-width: 100%;
+            }
+            
+            .service-icon {
+                width: 160px;
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка с навигацией -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-car"></i>
+                <span>S.Kolesnikov</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#support">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главная секция -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Профессиональный автосервис S.Kolesnikov</h1>
+            <p>Специализированный ремонт и обслуживание грузовых и легковых автомобилей.</p>
+            <a href="#services" class="btn">Наши услуги</a>
+        </div>
+    </section>
+
+    <!-- Услуги -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши услуги</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://psv4.userapi.com/s/v1/d2/yE0gkI78V8KzYNAsZMeYYQOPKTSTtvtQfH0bkl21W4_EJHz5ieoeAspIlLiDIjGxcTnycFZZrURuP5VDCHducV0Lqa-NnGA8IsjuRIvquMdC8JY0U4Ieh9BqPPKwy7GoV6WxCy0VZKro/612419014909.jpg" alt="Техническое обслуживание">
+                    </div>
+                    <h3>Полное ТО грузовых и легковых автомобилей</h3>
+                    <p>Замена масла, фильтров и всех расходных материалов. Профессиональное обслуживание двигателя и систем автомобиля.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://sun9-88.userapi.com/s/v1/ig2/4t16iMB1F5HFOAYks95ss9nQwUnLMoq6mxamVNIr_Lfe_Nsc5iVeOYOToUDPRydLokvOgrwV7sdX6IFyGFXpKO_3.jpg?quality=95&as=32x18,48x27,72x41,108x62,160x91,240x137,360x205,480x274&from=bu&cs=480x0" alt="Ремонт полуприцепов">
+                    </div>
+                    <h3>Ремонт полуприцепов</h3>
+                    <p>Замена колодок, дисков, подшипников, полурессор. Полный спектр услуг по ремонту ходовой части полуприцепов.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://sun9-48.userapi.com/s/v1/ig2/oQMv4Gn93LuxNMZzYAZzFu9wi0l6NMVGWWRc7-hkbmeOsaJciRayhY443ThAcBhBRyCn56kYcgVUfakCdey-xyDu.jpg?quality=95&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,800x600&from=bu&cs=800x0" alt="Ремонт ДВС">
+                    </div>
+                    <h3>Ремонт ДВС Ивеко, Камаз, Маз</h3>
+                    <p>Капитальный и текущий ремонт двигателей. Диагностика, замена компонентов, восстановление работоспособности.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://sun9-82.userapi.com/s/v1/ig2/0xNlc7ehEd1ytvkFwEYtbpax3r3xuUBWGZFGokctpafWPBAqWsr0xQ9qHAfFT3FRQBG8ER8Syc1pOPB79g7Xefjf.jpg?quality=95&as=32x17,48x26,72x38,108x58,160x85,240x128,360x192,480x256,540x288,640x341,720x384,900x480&from=bu&cs=900x0" alt="Диагностика электрики">
+                    </div>
+                    <h3>Диагностика и ремонт электрики грузовиков Ивеко</h3>
+                    <p>Специализированная диагностика электронных систем, ремонт проводки, замена датчиков и блоков управления.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://psv4.userapi.com/s/v1/d2/wQptbCplo0hduInrFeV_Id0YtBvBcwKc12SH5uw8EuYpbN8csJIYgEDqO55GoQeHrVmzdyRB_h9sH9cjDtaaqcscW1hx4mkIqH7xKgcP77tDmNtixqKTmXAPeqReIhBDd9vl7BvSw3DU/diploma_1.webp" alt="Сварочные работы">
+                    </div>
+                    <h3>Сварочные работы + Аргон</h3>
+                    <p>Профессиональная сварка аргоном. Ремонт кузова, рам, трещин и повреждений любой сложности.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://sun9-82.userapi.com/s/v1/ig2/aucNfd-QzS0TA7f2YY9DoB9g2kMWLyUDsBjMPrmbI7Gn0LKDb5JwglnCcSuqwoxggTk2GcPEpjAlt-usy8zFNJ0r.jpg?quality=95&as=32x22,48x33,72x49,108x73,160x108,240x163,360x244,472x320&from=bu&cs=472x0" alt="Ремонт подвески">
+                    </div>
+                    <h3>Диагностика и ремонт подвески</h3>
+                    <p>Полная диагностика ходовой части, замена амортизаторов, рычагов, сайлентблоков, шаровых опор.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://psv4.userapi.com/s/v1/d2/jZZhP6IG2ERa-pw-M0rXzmvoIKcvVX453V9lBqU3P7pzzRGzLzXLJEP-2yMnc-ZSBHS9kqIiqampDD5RN3bo3JDHVMQxNGcd0hJaqq6DUW6ZwpS8VnAbw8KQ0qXhym-e-_wBO7oEqhq6/1657591002486_bulletin.jpg" alt="Ходовая часть">
+                    </div>
+                    <h3>Ремонт ходовой части грузовых автомобилей</h3>
+                    <p>Профессиональный ремонт подвески, рулевого управления, тормозной системы грузовых авто.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://psv4.userapi.com/s/v1/d2/Kc6bgKZaPQGRITikxjMCPblxAfKR1sYpfObBJZLcBDbUfBqa-Ljfua0yB0HnU74LSZ1X_pJRHp8mE_mhGuKrcR6mrEV9m1s4okI3joPE9Fs97FFgSlJHHAcpJxq0ITYWtuaFNs532Eg3/5f40b307a3080d31e14ee15d-1.jpg" alt="Запчасти">
+                    </div>
+                    <h3>Подбор и заказ запчастей, шин и дисков</h3>
+                    <p>Помощь в подборе оригинальных и аналоговых запчастей. Заказ шин и дисков для грузовых и легковых авто.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://sun9-6.userapi.com/s/v1/ig2/61AQXUMinRMYPDac-bP_Na4ICZgb5XePCMsSe2CIrjen9befmYLUVcEoo9afVJPTSI-YMZA1bXTHd0fST3hs1v-C.jpg?quality=95&as=32x20,48x31,72x46,108x69,160x102,240x153,360x230,480x306,540x344,640x408,720x459,1024x653&from=bu&cs=1024x0" alt="Шиномонтаж">
+                    </div>
+                    <h3>Шиномонтажные работы грузовых и легковых</h3>
+                    <p>Профессиональный шиномонтаж, балансировка, ремонт проколов, сезонное хранение шин.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="https://psv4.userapi.com/s/v1/d2/Mtr5OgltTgipn4rS2O_VnefL7ZAp7em9ejhVTCkzTL-JU-KXMSz5GGU-m6ao_45cJPgVf7CY9JHyGwr_yMfRVxJmNSJXPnCHkO91nVFqKfZEldXp-NXy1Ibu5RTFA8nATqCxsSMgvB_A/0sW5yqWxNXe19Ahxr0FpwjZ-bSs-1920.jpg" alt="Пескоструйные работы">
+                    </div>
+                    <h3>Пескоструйные работы, грунтование и окраска кузовных деталей</h3>
+                    <p>Удаление ржавчины и старой краски пескоструем. Грунтование и профессиональная окраска кузовных деталей.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Как заказать -->
+    <section class="order" id="order">
+        <div class="container">
+            <div class="section-title">
+                <h2>Как заказать услугу</h2>
+            </div>
+            
+            <div class="order-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Свяжитесь с нами</h3>
+                    <p>Позвоните по указанному телефону или оставьте заявку на сайте. Наш менеджер уточнит детали и согласует время.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Диагностика</h3>
+                    <p>Привезите автомобиль в наш сервис для профессиональной диагностики. Мы определим объем работ и назовем точную стоимость.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Согласование</h3>
+                    <p>После диагностики мы предоставим детальную смету. Вы утверждаете работы, и мы приступаем к ремонту.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Выполнение и прием</h3>
+                    <p>Мы выполняем ремонт в согласованные сроки. Вы принимаете работу, проверяете качество и оплачиваете услуги.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="support" id="support">
+        <div class="container">
+            <div class="section-title">
+                <h2>Контакты</h2>
+            </div>
+            
+            <div class="support-content">
+                <p>Наша служба поддержки работает ежедневно с 8:00 до 22:00. Вы можете позвонить нам по указанному номеру, и наши специалисты ответят на все ваши вопросы, помогут записаться на обслуживание или проконсультируют по стоимости услуг.</p>
+                
+                <a href="tel:+78001234567" class="phone-number">
+                    <i class="fas fa-phone-alt"></i> номер телефона
+                </a>
+                
+                <p>Также вы можете написать нам в мессенджеры или посетить наш автосервис лично:</p>
+                
+                <div class="support-info">
+                    <p><i class="fas fa-map-marker-alt"></i> г. Тверь</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт: 8:00-22:00, Сб-Вс: 9:00-20:00</p>
+                    <p><i class="fas fa-envelope"></i> Почта</p>
+                </div>
+                
+                <a href="#home" class="btn" style="margin-top: 30px;">На главную</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>S.Kolesnikov</h3>
+                    <p>Профессиональный автосервис с полным спектром услуг по ремонту и обслуживанию грузовых и легковых автомобилей.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#support">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone-alt"></i> номер телефона</li>
+                        <li><i class="fas fa-envelope"></i> почта</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Тверь</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 Автосервис S.Kolesnikov. Специализированный ремонт грузовых автомобилей.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        // Мобильное меню
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Изменение стиля шапки при прокрутке
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if(window.scrollY > 100) {
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
